@@ -1,66 +1,83 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>HOKAGE DATTEBAYO</title>
+    <meta charset="utf-8">
     
-    <head>
-        <title>HOKAGEDATEBAYO</title>
-        <meta charset="UTF-8">
-    </head>
-    <link rel="stylesheet" type="text/js" href="assets/game.js">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="assets/reset.css">
-    <body>
-        <div id="column">Your Character
-            <div id="yourCharacter">
-                <div jumbotron>NARUTO NINJA WARS</div>
-                <div id="character">
-                <div class="card"  style="width: 18rem;"><div id="Naruto">
-                        <img src=" https://hobbydb-production.s3.amazonaws.com/processed_uploads/subject_photo/subject_photo/image/25153/1493335665-5118-9056/Naruto_large.jpg" class="card-img-top" alt="Naruto">
-                        <div class="card-body">
-                          <h5 class="card-title">Naruto Uzumaki</h5>
-                          <p class="card-text"></p>
-                        </div>
-                        </div>
-                        <br>
-                        <div class="card"  style="width: 18rem;"> <div id="Madara">
-                                <img src="https://i.pinimg.com/originals/48/49/76/484976d5247b962bac5da968629d4111.jpg" class="card-img-top" alt="Madara">
-                                <div class="card-body">
-                                  <h5 class="card-title">Madara Uchiha</h5>
-                                  <p class="card-text"></p>
-                                </div>
-                                </div>
-                                <br>
-                                <div class="card"  style="width: 18rem;"> <div id="Tobi">
-                                        <img src= "https://data.whicdn.com/images/225522803/superthumb.jpg?t=1455839581"class="card-img-top" alt="Tobi">
-                                        <div class="card-body">
-                                          <h5 class="card-title">Tobi Uchiha</h5>
-                                          <p class="card-text"></p>
-                                        </div>
-                                        </div>
-                                        <br>
-                                        <div class="card "  style="width: 18rem;"> <div id="Gaara">
-                                                <img src="https://imgix.ranker.com/user_node_img/50081/1001613352/original/protect-our-world-photo-u1?w=650&q=50&fm=pjpg&fit=crop&crop=faces" class="card-img-top" alt="Gaara">
-                                                <div class="card-body">
-                                                  <h5 class="card-title">Gaara</h5>
-                                                  <p class="card-text"></p>
-                                                </div>
-                                                </div>
-                                                </div>
-                                            </div>
-                        
-                      </div>
-                    </div>
-            
-           
-              
-               
-                
-               
-              
-            </div>
-        
-                <div id="available">Enemies able to attack</div>
-                <h1>Fight section</h1>
-                <div id="defend">Defender</div>
+
+    <!-- CSS -->
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+<body>
+    <!-- the select player character screen -->
+    <div id="firstScreen" class="container-fluid animated zoomIn bounceOut">
+       
+        <br>
+        <br>
+        <h1>NINJA WARS</h1>
+        <br>
+        <div id="game" class="ctr container card-deck">
         </div>
-    </body>
+    </div>
+    <!-- the main game screen -->
+    <div id="secondScreen" class="bg-trans container-fluid animated slideInDown">
+        <div class="row">
+            <div class="col-12 ctr">
+                Enemies remaining:
+                <div id="defLeftDiv"></div>
+            </div>
+        </div>
+        <div class="row text-center paddingTop">
+            <div class="col-5">
+                Player:
+                <div class="container" style="width: 30%;">
+                    <div id="playerDiv"></div>
+                    <div id="HealthDiv"></div>
+                </div>
+            </div>
+            <div class="col-2 paddingTop">
+            </div>
+            <div class="col-5">
+                Enemy:
+                <div class="container">
+                    <div id="defenderDiv"></div>
+                    <div id="defenderHealthDiv"></div>
+                </div>
+            </div>
+        </div>
+        <!-- holds the button -->
+        <div class="row">
+            <div class="col-12 btn">
+                <div id="msg"></div>
+                <br>
+                <button type="button" name="attack" id="attackBtn" class="btn btn-dark btn-lg">KSAO!</button>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid ">
+        <div id="globalMsg" class="animated fadeInUp">
+            <p class="shadow">
+                CONGRATULATIONS!
+                <br> You saved the ninja world! THIS IS YOUR NINDO!
+            </p>
+        </div>
+    </div>
+    <footer>
+       
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js " integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN "
+        crossorigin="anonymous "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js " integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q "
+        crossorigin="anonymous "></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js " integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl "
+        crossorigin="anonymous "></script>
+    <script src="./assets/game.js "></script>
+</body>
+
 </html>
