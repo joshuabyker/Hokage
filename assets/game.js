@@ -5,6 +5,8 @@ var defender; // holds the current defender Object
 var charArray = []; // array that stores the game characters (Objects)
 var playerSelected = false; // flag to mark if we picked a player yet
 var defenderSelected = false; // flag to mark if we picked a defender
+var enemies=3;// these are DUH DUH DUHHHH enemies
+
 
 
 // Constructor
@@ -93,7 +95,6 @@ function characterCards(divID) {
         $(divID + " div:last-child").append(charArray[i].name + "<br>");
         $(divID + " div:last-child").append("HP: " + charArray[i].healthPoints);
         $(divID + " idv:last-child").append();
-
     }
 }
 
@@ -115,19 +116,37 @@ function playAudio() {
     audio.play();
 }
 
-
-// Change the view from the first screen to the second screen
-function changeView() {
-    $("#firstScreen").empty();
-    $("#secondScreen").show();
-}
-
-
 $(document).on("click", "img", function () {
-    console.log(charArray);
-    // Stores the defender the user has clicked on in the defender variable and removes it from the charArray
+  
+    if (!playerSelected) {
+        for (var i = 0; i < charArray.length; i++) {
+            if (charArray[i].name == (this).id) {
+                player = charArray[i]; // sets current player
+                playAudio(); // starts theme song
+                setBaseAttack(player);
+                charArray.splice(i, 1);
+                playerSelected = true;
+                changeView();
+                $("#msg").html("Pick an enemy to fight!");
+                function changeView() {
+                    $("#firstScreen").empty();
+                    $("#secondScreen").show();
+                }
+            }
+        }
+
+        updatePics("#game", "#defendersLeftDiv");
+        $("#playerDiv").append(this); // appends the selected player to the div
+        $("#playerDiv").addClass("animated zoomIn");
+        $("#playerDiv").append(player.name);
+        $("#HealthDiv").append("HP: " + player.healthPoints);
+        $("#HealthDiv").addClass("animated zoomIn");
+    }
+
+   
     if (playerSelected && !defenderSelected && (this.id != player.name)) {
         console.log("here");
+        
         for (var j = 0; j < charArray.length; j++) {
             if (charArray[j].name == (this).id) {
                 defender = charArray[j]; // sets defender
@@ -142,34 +161,24 @@ $(document).on("click", "img", function () {
         $("#defenderHealthDiv").append("HP: " + defender.healthPoints);
         $("#defenderHealthDiv").addClass("animated zoomInRight");
     }
-    // Stores the character the user has clicked on in the player variable and removes it from charArray
-    if (!playerSelected) {
-        for (var i = 0; i < charArray.length; i++) {
-            if (charArray[i].name == (this).id) {
-                player = charArray[i]; // sets current player
-                playAudio(); // starts theme song
-                setBaseAttack(player);
-                charArray.splice(i, 1);
-                playerSelected = true;
-                changeView();
-                $("#msg").html("Pick an enemy to fight!");
-            }
-             if(playerSelected){
-                console.log("there");
-                characterCards("#defenderDiv");
-             }
-        }
-        updatePics("#game", "#defendersLeftDiv");
-        $("#playerDiv").append(this); // appends the selected player to the div
-        $("#playerDiv").addClass("animated zoomIn");
-        $("#playerDiv").append(player.name);
-        $("#HealthDiv").append("HP: " + player.healthPoints);
-        $("#HealthDiv").addClass("animated zoomIn");
-    }
 
+    if (defenderSelected && !isAlive(defender)) {
+        for (var j = 0; j < charArray.length; j++) {
+            if (charArray[j].name == (this).id) {
+                defender = charArray[j]; // sets defender
+                charArray.splice(j, 1);
+            }
+        }
+        $("#defenderDiv").empty();
+        $("#defenderDiv").append(this); // appends the selected defender to the div 
+        $("#defenderDiv").addClass("animated zoomInRight");
+        $("#defenderDiv").append("<br>" + defender.name);
+        $("#defenderHealthDiv").append("HP: " + defender.healthPoints);
+        $("#defenderHealthDiv").addClass("animated zoomInRight");
+    }
 });
 
-// The attack button functionality
+
 $(document).on("click", "#attackBtn", function () {
     if (playerSelected && defenderSelected) {
         if (isAlive(player) && isAlive(defender)) {
@@ -178,10 +187,12 @@ $(document).on("click", "#attackBtn", function () {
             $("#playerHealthDiv").html("HP: " + player.healthPoints);
             $("#defenderHealthDiv").html("HP: " + defender.healthPoints);
             if (!isAlive(defender)) {
+                enemies--;
                 $("#defenderHealthDiv").html("DEFETED!");
                 $("#playerHealthDiv").html("Enemy defeated!");
-                $("#msg").html("Pick another enemy to battle...");
+                $("#msg").html("Pick another enemy to battle...");                
             }
+           
             if (!isAlive(player)) {
                 $("#playerHealthDiv").html("YOU LOST!");
                 $("#msg").html("Try again...");
@@ -191,14 +202,16 @@ $(document).on("click", "#attackBtn", function () {
                 });
             }
         }
-       
+       if (enemies===0){
+           alert("You've saved the Ninja world")
+       }
     }
 });
 
-// EXECUTE
 $(document).ready(function () {
     $("#secondScreen").hide();
     $("#globalMsg").hide();
     initCharacters();
     characterCards("#game");
 });
+
